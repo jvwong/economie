@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block title %} | {{ title }}{% endblock title %}
+{% block head %}
+    <script type="text/javascript" src="js/economie.js"></script>
+{% endblock head %}
+
+{% block content %}
+<div id="rent-buy-container">
+     <h2 id="page-title">The eternal buy-vs-rent debate</h3>
+     
+     <div id="parameters">
+          <fieldset>
+               <legend>Parameters</legend>
+                    <label for="horizon">Horizon:</label>
+                    <input class="slider-text" type="text" id="horizon" size="8" />
+                    <div id="horizon_slider"></div><br>
+                    
+                    <hr>
+                         
+                    <label for="purchase_price">Purchase Price:</label>
+                    <!--<input type="text" name="purchase_price_value" id="purchase_price" value="750000" />-->
+                    <input class="slider-text" type="text" id="purchase_price" size="8" />
+                    <div id="purchase_price_slider"></div><br>
+                    
+                    <label for="downpayment">Downpayment:</label>
+                    <input class="slider-text" type="text" id="downpayment" size="10" />
+                    <div id="downpayment_slider"></div><br>
+                                        
+                    <label for="interest_rate">Interest rate</label>
+                    <input class="slider-text" type="text" id="interest_rate" size="8" />
+                    <div id="interest_rate_slider"></div><br>
+                    
+                    <label for="amortization">Amortization</label>
+                    <input class="slider-text" type="text" id="amortization" size="8" />
+                    <div id="amortization_slider"></div><br>
+                    
+                    <label for="property_tax_rate">Property tax</label>
+                    <input class="slider-text" type="text" id="property_tax_rate" size="8" />
+                    <div id="property_tax_rate_slider"></div><br>
+                    
+                    <label for="maintainance">Annual maintainance</label>
+                    <input class="slider-text" type="text" id="maintainance" size="6" />
+                    <div id="maintainance_slider"></div><br>
+                    
+                    <label for="dues">Annual dues</label>
+                    <input class="slider-text" type="text" id="dues" size="8" />
+                    <div id="dues_slider"></div><br>
+                    
+                    <label for="insurance">Annual insurance</label>
+                    <input class="slider-text" type="text" id="insurance" size="8" />
+                    <div id="insurance_slider"></div><br>
+                    
+                    <label for="appreciation_rate">Annual appreciation</label>
+                    <input class="slider-text" type="text" id="appreciation_rate" size="8" />
+                    <div id="appreciation_rate_slider"></div><br>
+                    
+                    <label for="income_tax_rate">Marginal income tax</label>
+                    <input class="slider-text" type="text" id="income_tax_rate" size="8" />
+                    <div id="income_tax_rate_slider"></div><br>
+                    
+                    <label for="inflation_rate">Inflation</label>
+                    <input class="slider-text" type="text" id="inflation_rate" size="8" />
+                    <div id="inflation_rate_slider"></div><br>
+                     
+                    <label for="mortage">Monthly mortage</label>
+                    <input type="text" id="mortage" value="" style="color:green" disabled><br>
+                    
+                    <br><hr><br>
+ 
+                    <label for="rent">Rent</label>
+                    <input class="slider-text" type="text" id="rent" size="8" />
+                    <div id="rent_slider"></div><br>
+                    
+                    <label for="rent_inflation_rate">Rental inflation</label>
+                    <input class="slider-text" type="text" id="rent_inflation_rate" size="8" />
+                    <div id="rent_inflation_rate_slider"></div><br>
+                    
+                    <label for="return_cash_rate">Return on cash</label>
+                    <input class="slider-text" type="text" id="return_cash_rate" size="8" />
+                    <div id="return_cash_rate_slider"></div><br>
+                    
+          </fieldset>
+          
+     </div><!--parameters-->
+          
+     <div class="graph" id="graph1">
+          <h3 class="graph-title">Value</h3>
+     </div>
+     <div class="graph" id="graph2">
+          <h3 class="graph-title">Payment</h3>
+     </div>
+     
+     <div id="summary">
+          <h3 class="table-title">Cost-Benefit Analysis</h3>
+          <table>
+               <caption align="bottom">
+               </caption>
+               <colgroup>
+                    <col class="summary-col" />
+                    <col class="summary-col" />
+               </colgroup>
+               <thead>
+                    <tr>
+                         <th scope="col">Item</th>
+                         <th scope="col">Value ($)</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                         <td>Total home value</td>
+                         <td id="total-value"></td>
+                    </tr>
+                    <tr>
+                         <td>Total debt</td>
+                         <td id="total-debt"></td>
+                    </tr>
+                         <tr>
+                         <td>Total equity</td>
+                         <td id="total-equity"></td>
+                    </tr>
+                    </tr>
+                         <tr>
+                         <td>Transaction cost</td>
+                         <td id="total-transaction"></td>
+                    </tr>
+                    <tr>
+                         <td>Net cash from sale</td>
+                         <td id="total-net"></td>
+                    </tr>
+                         <tr>
+                         <td>Total savings (rent)</td>
+                         <td id="total-savings"></td>
+                    </tr>
+                    <tr>
+                         <td class="benefit">Benefit of owning</td>
+                         <td id="total-benefit" class="benefit"></td>
+                    </tr>                    
+               </tbody>
+          </table>
+     </div><!--summary-->
+     <span id="clear-both"></span><br>
+          
+</div><!--rentbuy container-->
+
+<div id="economie-blurb">
+    <h4>Notes:</h4>	
+    <ol>
+	<li>"monthly mortgage": The geometric series calculation is slightly different from the one <a href="https://www.khanacademy.org/economics-finance-domain/core-finance/housing/mortgages-tutorial/v/geometric-series-sum-to-figure-out-mortgage-payments">described</a></li>
+	<li>"savings": The savings from renting compared to buying. That is, difference (renting - buying) is included in this value</li>
+	<li>"purchase": This includes inflation corrected maintenance, dues, and insurance</li>
+	<li>"Transaction cost": Fixed at 6% of the total home value</li>
+    </ol>
+    <h4>Credits:</h4>	
+    <p id="credit">
+	The inspiration and model for this page is taken directly from the wonderful work of the <a href="https://www.khanacademy.org/economics-finance-domain/core-finance/housing/renting-v-buying/v/renting-vs--buying-a-home">
+	Khan Adademy</a> section on finance. Download the <a href="data/buyrent.ods" target="_blank">spreadsheet</a> that I obtained from the website to see the modelling
+	calculations, assumptions, and approximations.  
+    </p>    
+</div>
+
+{% endblock content %}
+
+{% block footer %} 
+    {% parent %}
+{% endblock footer %}

@@ -8,7 +8,7 @@ import sys
 import django.core.handlers.wsgi
 import logging
 
-APP_NAME = "jeffreyvwong"
+APP_NAME = "mousy"
 
 APP_DIR = os.path.abspath(os.path.dirname(__file__)) 
 SITE_DIR = os.path.abspath(os.path.join(APP_DIR, "..")) 
