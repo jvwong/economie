@@ -6,14 +6,14 @@
             
     <!-- Add d3 library -->
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>      
-    <script type="text/javascript" src="js/d3.legend.js"></script>
+    <script type="text/javascript" src="/static/mousy/js/d3.legend.js"></script>
                
     <!-- Add jQuery library -->
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/mousy/css/base.css">
         
     <title>Mousy{% block title %}{% endblock title %}</title>
 
@@ -30,11 +30,10 @@
 		<div id="nav-links">
 		    <ul>
 			{% block navLinks %}			
-			    <li><a href = "/">Economie</a></li>
-			    <li><a href = "/household">Household</a></li>
-			    <!--<li><a href = "/mousy">WeBsOcKeTs!</a></li>-->
-			    <li><a href = "/users">Users</a></li>
-			    <li><a href = "/contact">Contact</a></li>
+			    <li><a href = "{% url 'mousy_economie' %}">Economie</a></li>
+			    <li><a href = "{% url 'mousy_household' %}">Household</a></li>
+			    <li><a href = "{% url 'mousy_contact' %}">Contact</a></li>
+			    <li><a href = "{% url 'admin:index' %}">Admin</a></li>
 			{% endblock navLinks %}				
 		    </ul>
 		</div>
@@ -45,28 +44,6 @@
 	{% endblock navigation %}
 	    
 	{% block header %}
-	    <div id="session">		
-		{% if session.user %}  
-		    <p>
-			<span>Hello&nbsp</span>
-			<span>{{ session.user.username }}</span>
-			<span>!</span>	
-		    </p>
-		    
-		    <p>
-			<form action="/session" method="POST">
-			    <input type="hidden" name="_method" value="DELETE" />
-			    <input type="submit" value="Log out"/>
-			</form>
-		    </p>
-		{% else %}
-		    <p>
-			<a href="/session/new">Login</a>
-			<span>&nbsp;or&nbsp;</span>
-			<a href="/users/new">Sign&nbspUp</a>	
-		    </p>		    
-		{% endif %}
-	    </div>
 	{% endblock header%}
     </div>  
 

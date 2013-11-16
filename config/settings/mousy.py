@@ -4,7 +4,7 @@ APP_NAME = "mousy"
 
 DEBUG = True
 
-#Pre-configured paths
+#Pre-configured pathsc
 SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__)) 
 CONFIG_DIR = os.path.abspath(os.path.join(SETTINGS_DIR, "..")) 
 PARENT_DIR = os.path.abspath(os.path.join(CONFIG_DIR, "..")) 
@@ -111,7 +111,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware', 
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
