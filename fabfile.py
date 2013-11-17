@@ -1,4 +1,4 @@
-from __future__ import with_statement
+cdfrom __future__ import with_statement
 from fabric.api import *
 
 def push():

@@ -223,20 +223,74 @@ button {
      End: economie
 -----------------------------*/
 /*----------------------------
-        Begin: Mousy
+        Begin: household
 -----------------------------*/
-
-#mousy-pen{
-        position: relative;
-        margin: 10px 10px;
-        padding: 5px 5px;
-        width: 80%;
-        height: 250px;
-        border: solid black;        
+#main-container{
+    position: relative;
+    top: 50px;
 }
 
+#main-container h4{
+    font-weight: bold;    
+}
+
+#main-container .axis.x text{
+    font-size: 1.3em;    
+}
+
+#dc-table-graph{
+    width: 75%;
+    border: groove;
+}
+
+#dc-table-graph th{
+    text-align: center;
+    width: 25%;
+}
+
+#dc-table-graph td{
+    border: medium;
+}
+
+.dc-table-group{
+    visibility: collapse;
+    /*visibility: hidden;*/
+}
+
+#add-receipt{
+    position: absolute;
+    left: 50%;
+    top: 1%;
+}  
+
 /*----------------------------
-        End: Mousy
+        end: household
+-----------------------------*/
+/*----------------------------
+        Begin: Signup
+-----------------------------*/
+
+#user-signup{
+        border: none;
+}
+
+#user-signup tr{
+        height: 1em ;
+}
+
+#user-signup .errorlist li{
+      color: red;
+      list-style-type: none; 
+}
+
+#signup-button{
+      position: relative;
+      left: 0px;
+}
+
+
+/*----------------------------
+        End: Signup
 -----------------------------*/
 
 /*----------------------------

@@ -1,0 +1,34 @@
+{% extends 'mousy/base.html' %}
+{% block title %} | {{ title }}{% endblock title %}
+{% block head %}    
+{% endblock head %}
+
+{% block content %}
+    <h3>Register for your new account</h3>
+    <p>All fields are required.</p>
+    <form action="" method="POST">{% csrf_token %}
+        <table id="user-signup">
+            <colgroup>
+                <col class="label"/>
+                <col class="field"/>                
+                <col class="errors"/>                
+            </colgroup>            
+            <thead>
+                 <tr>
+                     <th scope="col">Label</th>
+                     <th scope="col">Field</th>
+                     <th scope="col">Errors</th>                     
+                 </tr>
+            </thead>
+            {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+                <td>{{ field.errors }}</td>                
+            </tr>   
+            {% endfor %}
+        </table>
+        <input id="signup-button" type="submit" value="Submit" />        
+    </form>
+
+{% endblock content %}
