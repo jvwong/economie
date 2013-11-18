@@ -1,4 +1,4 @@
-cdfrom __future__ import with_statement
+from __future__ import with_statement
 from fabric.api import *
 
 def push():
@@ -7,7 +7,7 @@ def push():
 env.hosts = ['jvwong@192.168.0.10']
 
 def remote_pull():
-    code_dir = '/var/www/dj_powered/'
+    code_dir = '/var/www/economie/'
     with cd(code_dir):
         run("git pull origin master")
 
