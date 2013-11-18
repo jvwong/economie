@@ -270,23 +270,6 @@ button {
         Begin: Signup
 -----------------------------*/
 
-#user-signup{
-        border: none;
-}
-
-#user-signup tr{
-        height: 1em ;
-}
-
-#user-signup .errorlist li{
-      color: red;
-      list-style-type: none; 
-}
-
-#signup-button{
-      position: relative;
-      left: 0px;
-}
 
 
 /*----------------------------

@@ -1,11 +1,36 @@
 {% extends 'mousy/base.html' %}
 {% block title %} | {{ title }}{% endblock title %}
-{% block head %}    
+{% block head %}
+    <style type="text/css">
+        table#user-signup .label, .field, .errors{
+        width: 25%;
+        }
+        
+        table#user-signup{
+                border: none;
+                width: 800px;
+        }
+        
+        table#user-signup td{
+                height: 2em;
+                border: none;
+        }
+        
+        table#user-signup .errorlist li{
+              color: red;
+              list-style-type: none; 
+        }
+        
+        #signup-button{
+              position: relative;
+              left: 0px;
+        }       
+    </style>
 {% endblock head %}
 
 {% block content %}
     <h3>Register for your new account</h3>
-    <p>All fields are required.</p>
+    <p>All fields required</p>
     <form action="" method="POST">{% csrf_token %}
         <table id="user-signup">
             <colgroup>
@@ -24,11 +49,14 @@
             <tr>
                 <td>{{ field.label_tag }}</td>
                 <td>{{ field }}</td>
-                <td>{{ field.errors }}</td>                
-            </tr>   
+                <td>{{ field.errors }}</td>
+            </tr>
             {% endfor %}
+            <tr>
+                <td><input id="signup-button" type="submit" value="Submit" /></td>
+            </tr>
         </table>
-        <input id="signup-button" type="submit" value="Submit" />        
+        
     </form>
 
 {% endblock content %}

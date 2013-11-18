@@ -1,0 +1,69 @@
+{% extends "mousy/base.html" %}
+{% block title %} | {{ title }}{% endblock title %}
+{% block head %}
+        <style type="text/css">
+        table#user-login .label, .field, .errors{
+        width: 25%;
+        }
+        
+        table#user-login{
+                border: none;
+                width: 800px;
+        }
+        
+        table#user-login td{
+                height: 2em;
+                border: none;
+        }
+        
+        table#user-login .errorlist li{
+              color: red;
+              list-style-type: none; 
+        }
+        
+        #login-button{
+              position: relative;
+              left: 0px;
+        }       
+    </style>
+{% endblock head %}
+{% block content %}
+
+    <form action="" method="POST">{% csrf_token %}
+        <table id="user-login">
+            <colgroup>
+                <col class="label"/>
+                <col class="field"/>                
+                <col class="errors"/>                
+            </colgroup>            
+            <thead>
+                 <tr>
+                     <th scope="col">Label</th>
+                     <th scope="col">Field</th>
+                     <th scope="col"></th>                     
+                 </tr>
+            </thead>
+            {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+                <td>
+                    {{ field.errors }}                    
+                </td>                
+            </tr>
+            {% endfor %}         
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{{ form.non_field_errors }}</td>
+            </tr>
+            <tr>
+                <td><input id="login-button" type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+        
+    </form>
+
+{% endblock content %}
+
+

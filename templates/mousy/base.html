@@ -48,13 +48,13 @@
 			<span>Hello&nbsp</span>
 			<span>{{ user.username }}</span>
 			<span>!</span><br>
-			<a href="/accounts/logout/">Logout</a>			
+			<a href="{% url 'mousy_users_logout' %}">Logout</a>			
 		    </p>	    
 		{% else %}
 		    <p>
-			<a href="/accounts/login/">Login</a>
+			<a href="{% url 'mousy_users_login' %}">Login</a>
 			<span>&nbsp;or&nbsp;</span>
-			<a href="{% url 'mousy_signup' %}">Sign&nbspUp</a>	
+			<a href="{% url 'mousy_users_signup' %}">Sign&nbspUp</a>	
 		    </p>		    
 		{% endif %}
 	    </div>	    
