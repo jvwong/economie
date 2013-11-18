@@ -1,0 +1,12 @@
+{% extends "household/receipt_archive.html" %}
+
+{% block title %} {{ block.super }} | {{ month| date:"M Y"}} {% endblock title %}  
+
+{% block content %}
+
+	<h3>Receipts logged on {{ day| date:"F j, Y"}} </h3>
+	
+	{{ block.super }}
+	
+{% endblock content %}
+

@@ -3,27 +3,39 @@
         // Create the dc.js chart objects & link to div
         var dayChart = dc.barChart("#dc-day-chart");
         var whoChart = dc.barChart("#dc-who-chart");
-        var monthChart = dc.lineChart("#dc-month-chart");
+        var monthChart = dc.barChart("#dc-month-chart");
         var dataTable = dc.dataTable("#dc-table-graph");
         
         var div = d3.select("body").append("div")   
                                     .attr("class", "tooltip")               
                                     .style("opacity", 0);
         var dtgFormat2 = d3.time.format("%a %e %b");
-        d3.csv('/static/mousy/data/grocery.csv', function(error, data_list){
-            
-            data = data_list;  
+        
+        
+       $.ajax({
+              type: "GET",
+              url: "/household/receipt/json/",
+              dataType: "json",
+              success: function(response){                     
+                     generate(response);
+              }           
+       });
+        
+        
+        function generate(data) {
+              
+            //console.log(data);
              
-            var parseDate = d3.time.format("%Y-%m-%d");
+            var parseDate = d3.time.format("%Y-%b-%d");
             data.forEach(function(d) {
                 d.date = parseDate.parse(d.date);
                 d.month = d3.time.month(d.date);
-                d.amount = +d.amount;
+                d.amount = d.amount;
                 d.detail = d.detail;
-                d.who = d.who;
-                //console.log(d.amount);
+                d.who = d.created_by;
+                //console.log(d.date);
             });
-           
+                       
             // Run the data through crossfilter and load our 'facts'
             var facts = crossfilter(data);
             
@@ -63,11 +75,11 @@
                     function(d) { return d.detail; },
                     function(d) { return d.who; }                    
                 ]);
-        
+           
             
             var start_dayChart = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[0], -1);
             var end_dayChart  = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[1], +1);
-      
+           
             //// time graph
             dayChart.width(span12_width)
                     .height(span_height)
@@ -81,7 +93,7 @@
                     .x(d3.time.scale().domain([start_dayChart, end_dayChart]) )
                     .elasticY(true)
                     .xAxis();
-         
+           
             // time graph
             whoChart.width(span6_width)
                         .height(span_height)
@@ -111,14 +123,16 @@
                     .dimension(monthDimension)
                     .group(monthDimensionGroup)
                     .transitionDuration(500)
+                    .centerBar(true)
                     .xUnits(d3.time.months)
+                    .gap(10)
                     .x(d3.time.scale().domain([start_monthChart, end_monthChart ]))
                     .elasticY(true)
                     .xAxis();
              
            // Render the Charts
            dc.renderAll();
-        
+           
            d3.select("#dc-day-chart .axis.x")
                 .selectAll("text")
                 .style("text-anchor", "end")
@@ -127,7 +141,7 @@
                 .attr("transform", function(d) {
                     return "rotate(-45)"
                 });
-        
+           
             d3.select("#dc-month-chart .axis.x")
                 .selectAll("text")
                 .style("text-anchor", "end")
@@ -137,8 +151,7 @@
                     return "rotate(-90)"
                 });
         
-        
-        });
+       }     
         
         
         

@@ -1,0 +1,17 @@
+{% extends "mousy/base.html" %}
+
+{% block title %} {{ block.super }} | {{ year.year }} {% endblock title %}  
+
+{% block content %}
+
+	<h3 class="title">Receipts logged in {{ year| date:"Y"}} </h3>
+	<ul>		
+	{% for date in date_list %}
+		<li>
+			<a href="{% url 'mousy_receipt_archive_year' date|date:'Y' %}{{ date|date:'b'}}/">{{ date|date:'F'}}</a>
+			
+		</li>		
+	{% endfor %}
+	</ul>    
+{% endblock content %}
+

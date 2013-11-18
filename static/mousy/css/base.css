@@ -79,11 +79,8 @@ a.nav:link, a.nav:visited{
       
 }
 
-#session{
-	position: absolute;
-	top: 10px;
-	right: 100px;
-}
+
+
 /*----------------------------
 	End: header
 -----------------------------*/
@@ -96,7 +93,7 @@ a.nav:link, a.nav:visited{
 #content{
       clear: both;
       position: relative;
-      width: 1000px;
+      width: 1200px;
       min-height: 700px;
       margin-left: auto;
       margin-right: auto;
@@ -222,12 +219,27 @@ button {
 /*----------------------------
      End: economie
 -----------------------------*/
+
+
 /*----------------------------
         Begin: household
 -----------------------------*/
+
+#sidebar{
+	position: absolute;
+	left: 50px;
+	top: 50px;
+}
+
+#sidebar p{
+	font-size: 1em;
+}
+
 #main-container{
     position: relative;
     top: 50px;
+    width: 1000px;
+    margin-left: 225px;
 }
 
 #main-container h4{
@@ -257,23 +269,64 @@ button {
     /*visibility: hidden;*/
 }
 
-#add-receipt{
-    position: absolute;
-    left: 50%;
-    top: 1%;
-}  
+
 
 /*----------------------------
         end: household
 -----------------------------*/
 /*----------------------------
-        Begin: Signup
+        Begin: Users
 -----------------------------*/
+table#user-signup .label, .field, .errors{
+      width: 25%;
+}
 
+table#user-signup{
+	border: none;
+	width: 800px;
+}
 
+table#user-signup td{
+	height: 2em;
+	border: none;
+}
+
+table#user-signup .errorlist li{
+      color: red;
+      list-style-type: none; 
+}
+
+#signup-button{
+      position: relative;
+      left: 0px;
+}
+
+table#user-login .label, .field, .errors{
+    width: 25%;
+}
+
+table#user-login{
+	border: none;
+	width: 800px;
+}
+
+table#user-login td{
+	height: 2em;
+	border: none;
+}
+
+table#user-login .errorlist li{
+      color: red;
+      list-style-type: none; 
+}
+
+#login-button{
+      position: relative;
+      left: 0px;
+}   
 
 /*----------------------------
-        End: Signup
+        End: Users
 -----------------------------*/
 
 /*----------------------------

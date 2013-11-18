@@ -20,8 +20,21 @@
 
 {% block content %}     
 
-     <h4><a id="add-receipt" href="/household/receipt/add/">Add New Receipt (login required)</a></h4>                
-
+    <div id="sidebar">		
+        {% if user.is_authenticated %}  
+            <p>User: {{ user.username }} (<a href="{% url 'mousy_users_logout' %}">Logout</a>)</p>
+                
+                {% if perms.mousy.add_receipt %}
+                    <p><a id="add-receipt" href="/household/receipt/add/">Add receipt</a></p>
+                {% endif %}   
+        {% else %}
+              <p>
+                  <a href="{% url 'mousy_users_login' %}">Login</a>
+                  <span>&nbsp;or&nbsp;</span>
+                  <a href="{% url 'mousy_users_signup' %}">Sign&nbspUp</a>	
+              </p>		    
+        {% endif %}
+    </div>
     <div class='container' id='main-container'>
         <div class='content'>
             <div class='container'>
@@ -64,6 +77,7 @@
             </div>
         </div>
     </div>
+    
     
 {% endblock content %}
 

@@ -1,0 +1,35 @@
+{% extends "mousy/base.html" %}
+
+{% block title %} {{ block.super }} | Latest Receipts {% endblock title %}  
+
+{% block content %}
+
+{% for object in page_obj.object_list %}
+    <h3 class="title"><a class="title" href="{{ object.get_absolute_url }}">Receipt ID: {{ object.pk }}</a></h3>
+    <p>
+          Created by: {{ object.created_by }}<br>
+          Date: {{ object.date | date:"F j, Y" }}<br>
+          Details: {{ object.detail }} <br>
+          Amount: ${{ object.amount }}	
+    </p>
+    <br> 
+{% endfor%}
+
+
+{% if is_paginated %}
+    <div class="pagination">
+	<span class="page-links">
+	{% for page_num in paginator.page_range %}
+	    {% if page_obj.number == page_num %}
+		{{page_obj.number}}
+	    {% else %}
+		<a class="page-links" href='{% url "mousy_receipt_archive_index" %}?page={{ page_num }}'>{{ page_num }}</a>
+	    {% endif %}                    
+	{% endfor %}
+	</span>
+    </div>
+    <br>
+{% endif %}
+    
+{% endblock content %}
+

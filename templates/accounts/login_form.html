@@ -1,32 +1,6 @@
 {% extends "mousy/base.html" %}
 {% block title %} | {{ title }}{% endblock title %}
-{% block head %}
-        <style type="text/css">
-        table#user-login .label, .field, .errors{
-        width: 25%;
-        }
-        
-        table#user-login{
-                border: none;
-                width: 800px;
-        }
-        
-        table#user-login td{
-                height: 2em;
-                border: none;
-        }
-        
-        table#user-login .errorlist li{
-              color: red;
-              list-style-type: none; 
-        }
-        
-        #login-button{
-              position: relative;
-              left: 0px;
-        }       
-    </style>
-{% endblock head %}
+
 {% block content %}
 
     <form action="" method="POST">{% csrf_token %}

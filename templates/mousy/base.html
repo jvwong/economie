@@ -24,7 +24,7 @@
 <body class={% block bodyclass %}{% endblock bodyclass %}>
     <div id="header">
 	    
-	{% block navigation %}    
+      {% block navigation %}    
 	    <div id="navigation">
 	    
 		<div id="nav-links">
@@ -41,26 +41,8 @@
 		</div>
 	    
 	    </div>    
-	{% endblock navigation %}
-            <div id="session">		
-		{% if user.is_authenticated %}  
-		    <p>
-			<span>Hello&nbsp</span>
-			<span>{{ user.username }}</span>
-			<span>!</span><br>
-			<a href="{% url 'mousy_users_logout' %}">Logout</a>			
-		    </p>	    
-		{% else %}
-		    <p>
-			<a href="{% url 'mousy_users_login' %}">Login</a>
-			<span>&nbsp;or&nbsp;</span>
-			<a href="{% url 'mousy_users_signup' %}">Sign&nbspUp</a>	
-		    </p>		    
-		{% endif %}
-	    </div>	    
-	{% block header %}
-	
-	{% endblock header%}
+      {% endblock navigation %}
+
     </div>  
 
  	

@@ -40,7 +40,7 @@ def user_login(request):
         user = authenticate(username = usernm, password = passwd)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect("/")        
+            return HttpResponseRedirect("/household")        
     else:        
         form = LoginForm()
     return render_to_response('accounts/login_form.html',
@@ -62,7 +62,7 @@ class ReceiptCreate(CreateView):
     form_class = ReceiptForm
     model = Receipt
     success_url = "/household"
-    template_name = "receipt_form.html"
+    template_name = "household/receipt_form.html"
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -77,6 +77,38 @@ class ReceiptDelete(UpdateView):
     model = Receipt
     success_url = "/household/receipt"
 
+
+
+###Return JSON receipts
+from django.http import HttpResponse
+from django.utils import simplejson
+from django.views.generic.detail import View, BaseDetailView, SingleObjectTemplateResponseMixin
+from django.views.generic.list import ListView, MultipleObjectTemplateResponseMixin
+
+class JSONResponseMixin(object):
+    def render_to_response(self, context):
+        return self.get_json_response(self.convert_context_to_json(context))
+    def get_json_response(self, content, **httpresponse_kwargs):
+        return HttpResponse(content, content_type='application/json', **httpresponse_kwargs)
+    def convert_context_to_json(self, context):
+        return simplejson.dumps(context)
+
+class HybridListView(JSONResponseMixin, ListView):
+    def render_to_response(self, context):
+        if self.request.is_ajax():
+            o_list = context['object_list']
+            j_list = [o.as_dict() for o in o_list]
+            return JSONResponseMixin.render_to_response(self, j_list)
+        return MultipleObjectTemplateResponseMixin.render_to_response(self, context)
+    
+class HybridDetailView(JSONResponseMixin, SingleObjectTemplateResponseMixin, BaseDetailView):
+    def render_to_response(self, context):
+        if self.request.is_ajax():
+            logging.error("Ajax Request Logged")
+            obj = context['object'].as_dict()
+            return JSONResponseMixin.render_to_response(self, obj)
+        else:
+            return SingleObjectTemplateResponseMixin.render_to_response(self, context)
 
 
 

@@ -1,0 +1,12 @@
+{% extends "mousy/base.html" %}
+
+{% block content %}
+     <h4 class="title">Receipt No. {{ object.pk }}</h4>
+     <p>
+          Created by: {{ object.created_by }}<br>
+          Date: {{ object.date | date:"F j, Y" }}<br>
+          Details: {{ object.detail }} <br>
+          Amount: ${{ object.amount }}	
+     </p>    
+     
+{% endblock content %}
