@@ -18,11 +18,11 @@ def start_sup():
     sudo('/usr/local/bin/supervisord -c /etc/supervisord.conf')
 
 def stop_sup():
-    run('/usr/local/bin/supervisorctl stop all')
+    run('/usr/local/bin/supervisorctl stop economies:*')
     run('/usr/local/bin/supervisorctl shutdown')
 
 def restart_sup():
-    run('/usr/local/bin/supervisorctl restart all')
+    run('/usr/local/bin/supervisorctl restart economies:*')
 
 def reboot():
     sudo('reboot')
