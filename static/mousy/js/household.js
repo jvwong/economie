@@ -209,7 +209,7 @@ household = (function(){
                      .colors(d3.scale.category10())
                      .renderTitle(true)
                      .title( function(d){
-                       return "Total: $" + (d.data.value).toFixed(2);
+                       return d.data.key + "; Total: $" + (d.data.value).toFixed(2);
                      })
                      .transitionDuration(500)
                      .dimension(detailDimension) 
