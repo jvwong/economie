@@ -89,6 +89,7 @@ household = (function(){
               monthDimension, monthDimensionGroup,
               nameDimension, nameDimensionGroup,
               detailDimension, detailDimensionGroup,
+              all,allDetail, 
               
               
               margins_template,                
@@ -136,11 +137,12 @@ household = (function(){
               nameDimensionGroup = nameDimension.group().reduceSum(function(d) { return d.amount; });                
                          
               detailDimension = facts.dimension(function(d) { return d.detail; });
-              detailDimensionGroup = detailDimension.group().reduceSum(function(d) { return d.amount; });                
-                                                    
+              detailDimensionGroup = detailDimension.group().reduceSum(function(d) { return d.amount; });
               
-             
-                         
+              all = facts.groupAll();
+              
+              allDetail = all.reduceSum( function(d) { return d.amount; } );
+                                       
               //// Receipts by day
               start_dayChart = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[0], -1);
               end_dayChart  = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[1], +1);
@@ -199,7 +201,12 @@ household = (function(){
                      .width(span4_width) 
                      .height(span_height)
                      .radius((span4_width/2.5)) 
+                     .label(function (d) {
+                            return d.data.key + "(" + Math.floor( d.data.value / allDetail.value() * 100) + "%)";
+                     })
+                     .renderLabel(true)
                      //.innerRadius((span4_width/7.5))
+                     .transitionDuration(500)
                      .dimension(detailDimension) 
                      .group(detailDimensionGroup);
                      
