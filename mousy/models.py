@@ -27,8 +27,9 @@ class Receipt(models.Model):
         return {'amount':self.amount,
                 'detail':self.detail,
                 'created_by':self.created_by.username,                
-                'date':self.date.strftime("%Y-%b-%d")
-                }
+                'date':self.date.strftime("%Y-%b-%d"),
+                'pk':self.pk
+               }
         
     @models.permalink    
     def get_absolute_url(self):

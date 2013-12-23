@@ -4,5 +4,21 @@
 {% endblock head %}
 
 {% block content%}       
-    <h3>Delete receipt</h3>
+  <h3>Delete receipt</h3>
+
+  {% if perms.mousy.delete_receipt %}
+    <h4 class="title">Receipt No. {{ object.pk }}</h4>
+    <p>
+      Created by: {{ object.created_by }}<br>
+      Date: {{ object.date | date:"F j, Y" }}<br>
+      Details: {{ object.detail }} <br>
+      Amount: ${{ object.amount }}
+    </p>
+    <form method="POST" action="{% url 'mousy_receipt_delete' object.pk %}">{% csrf_token %}
+      <input type="submit" name="confirm-delete" value="Confirm Delete">
+    </form>
+  {% else %}
+    <p>Unauthorized<a href="{% url 'mousy_household' %}">Back</a></p>
+  {% endif %}
+
 {% endblock content %}

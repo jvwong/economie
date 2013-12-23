@@ -71,11 +71,13 @@ class ReceiptCreate(CreateView):
 class ReceiptUpdate(UpdateView):
      form_class = ReceiptForm
      model = Receipt
+     template_name = 'household/receipt_form.html'
     
-class ReceiptDelete(UpdateView):
+class ReceiptDelete(DeleteView):
     form_class = ReceiptForm
     model = Receipt
-    success_url = "/household/receipt"
+    template_name = 'household/receipt_confirm_delete.html'
+    success_url = "/household"
 
 
 
