@@ -188,7 +188,7 @@ household = (function(){
                           .brushOn(false)
                           .renderTitle(true)
                           .title( function(d){
-                            return "Total: $" + (d.data.value).toFixed(2);
+                            return "Total: $" + (d.value).toFixed(2);
                           })
                           .centerBar(false)
                           .gap(25)                        
