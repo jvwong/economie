@@ -1,21 +1,23 @@
 {% extends 'mousy/base.html' %}
 {% block head %}
-
-    <!-- Add crossfilter library -->
-    <script type="text/javascript" src="/static/mousy/js/crossfilter.js"></script>
-        
-    <!--Add dc.js library -->
-    <script type="text/javascript" src="/static/mousy/js/dc.js"></script>
-    <link rel="stylesheet" type="text/css"  href="/static/mousy/css/dc.css" />
     
-    <!--Add Bootstrap library -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"  />
-  
     <title>Mousy{% block title %} | {{ title }}{% endblock title %}</title>
  
-    <script type="text/javascript" src="/static/mousy/js/household.js"></script>
+    <!-- third-party javascript -->
+    <script src="/static/mousy/js/crossfilter.js"></script>
+    <script src="/static/mousy/js/dc.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     
+    <!-- third-party stylesheets -->
+    <link rel="stylesheet" type="text/css"  href="/static/mousy/css/dc.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"  />
+  
+    <!-- our javascript -->
+    <script src="/static/mousy/js/household.js"></script>        
+
+    <script>
+        $(function () { household.initModule( $('#main-container') ); });
+    </script>
 {% endblock head %}
 
 {% block content %}     
@@ -34,53 +36,8 @@
                   <a href="{% url 'mousy_users_signup' %}">Sign&nbspUp</a>	
               </p>		    
         {% endif %}
-    </div>
-    <div class='container' id='main-container'>
-        <div class='content'>
-            <div class='container'>
-               <div class='row'>
-                    <div class='span6' id='dc-day-chart'>
-                        <h4>Daily Expenses</h4>
-                        
-                    </div>
-                </div>
-                
-                <div class='row'>
-                    <div class='span6' id='dc-month-chart'>
-                        <h4>Monthly Expenses</h4>
-                        
-                    </div>
-                    <div class='span6' id='dc-name-chart'>
-                        <h4>Expenses by user</h4>
-                        
-                    </div> 
-                </div>
-                <br>
-                <br>
-                <div class='row'>
-                    <div class='span12' id='table-chart'>
-                        <h4>Expense Details</h4>
-                        <table class="table table-hover" id="dc-table-graph">
-                            <thead>
-                                <tr class="header">
-                                  <th>Date</th>
-                                  <th>Amount</th>
-                                  <th>Detail</th>
-                                  <th>Who</th>
-                                  <th>Detail</th>
-                                  <th>Update</th>
-                                  <th>Delete</th>
-                                </tr>                            
-                            </thead>                        
-                        </table>
-                
-                    </div>    
-                </div>            
-                
-            </div>
-        </div>
-    </div>
-    
+    </div>    
+    <div class='container' id='main-container'></div>    
     
 {% endblock content %}
 
