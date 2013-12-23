@@ -103,7 +103,7 @@ household = (function(){
                      
               
               //formatting and utilities
-              margins_template = {top: 10, right: 10, bottom: 80, left: 40};
+              margins_template = {top: 10, right: 10, bottom: 80, left: 60};
               span_height = 350;
               span4_width = 300;
               span6_width = 450;
@@ -154,7 +154,7 @@ household = (function(){
                       .group(dayDimensionGroup)
                       .transitionDuration(500)
                       .centerBar(true)
-                      .gap(2)
+                      .gap(5)
                       .xUnits(d3.time.days)
                       .x(d3.time.scale().domain([start_dayChart, end_dayChart]) )
                       .elasticY(true)
@@ -170,9 +170,9 @@ household = (function(){
                        .dimension(monthDimension)
                        .group(monthDimensionGroup)
                        .transitionDuration(500)
-                       .centerBar(true)
+                       .centerBar(false)
                        .xUnits(d3.time.months)
-                       .gap(10)
+                       .gap(4)
                        .x(d3.time.scale().domain([start_monthChart, end_monthChart ]))
                        .elasticY(true)
                        .xAxis();
@@ -193,7 +193,7 @@ household = (function(){
                           .gap(25)                        
                           .elasticY(true)
                           .xUnits(dc.units.ordinal)
-                          .x(d3.scale.ordinal().domain( data.map(function (d) {return d.name; }) ) )
+                          .x(d3.scale.ordinal().domain( data.map(function (d) { return d.name; }) ) )
                           .xAxis();                  
             
             
@@ -239,7 +239,7 @@ household = (function(){
                      .attr("dx", "-.8em")
                      .attr("dy", ".15em")
                      .attr("transform", function() {
-                       return "rotate(-90)";
+                       return "rotate(-45)";
                      });
               
               d3.select("#dc-day-chart .axis.x")
@@ -250,6 +250,15 @@ household = (function(){
                      .attr("transform", function() {
                        return "rotate(-45)";
                      });
+
+              d3.select("#dc-name-chart .axis.x")
+                    .selectAll("text")
+                    .style("text-anchor", "end")
+                    .attr("dx", "-.8em")
+                    .attr("dy", "1em")
+                    .attr("transform", function() {
+                     return "rotate(-45)";
+                    });
        }
        
        //------------------- BEGIN PUBLIC METHODS ---------------------
