@@ -203,10 +203,10 @@ household = (function(){
                      .height(span_height)
                      .radius((span4_width/2.5)) 
                      .label(function (d) {
-                            return d.data.key + "(" + Math.floor( d.data.value / allDetail.value() * 100) + "%)";
+                            return d.data.key;
                      })
                      .renderLabel(true)
-                     //.innerRadius((span4_width/7.5))
+                      .colors(d3.scale.category10())
                      .transitionDuration(500)
                      .dimension(detailDimension) 
                      .group(detailDimensionGroup);
