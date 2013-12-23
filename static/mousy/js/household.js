@@ -199,7 +199,7 @@ household = (function(){
                      .width(span4_width) 
                      .height(span_height)
                      .radius((span4_width/2.5)) 
-                     .innerRadius((span4_width/7.5))
+                     //.innerRadius((span4_width/7.5))
                      .dimension(detailDimension) 
                      .group(detailDimensionGroup);
                      
