@@ -117,6 +117,7 @@ household = (function(){
                      d.year = d.date.getFullYear().toString();
                      d._month = monthNames[d.date.getMonth()];
                      d.day = d.date.getDate().toString();
+                     d.amount = d.amount.toFixed(2);
                      d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
                      d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
               
