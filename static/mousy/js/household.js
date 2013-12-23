@@ -2,7 +2,7 @@
         
         // Create the dc.js chart objects & link to div
         var dayChart = dc.barChart("#dc-day-chart");
-        var whoChart = dc.barChart("#dc-who-chart");
+        var nameChart = dc.barChart("#dc-name-chart");
         var monthChart = dc.barChart("#dc-month-chart");
         var dataTable = dc.dataTable("#dc-table-graph");
         
@@ -28,27 +28,25 @@
 
 
           var parseDate = d3.time.format("%Y-%b-%d");
-
           data.forEach(function(d) {
-            d.date = parseDate.parse(d.date);
-            d.month = d3.time.month(d.date);
-            d.year = d.date.getFullYear().toString();
-            d._month = monthNames[d.date.getMonth()];
-            d.day = d.date.getDate().toString();
-            d.amount = d.amount;
-            d.detail = d.detail;
-            d.who = d.created_by;
-            d.pk = d.pk;
-            d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
-            d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
-            d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
-
-//            console.log(d.delete_url);
-//            console.log(d.month);
-//            console.log(d.day);
-
+              
+              d.date = parseDate.parse(d.date);
+              d.month = d3.time.month(d.date);
+              d.year = d.date.getFullYear().toString();
+              d._month = monthNames[d.date.getMonth()];
+              d.day = d.date.getDate().toString();
+              d.amount = d.amount;
+              d.detail = d.detail;
+              d.name = d.name;
+              d.pk = d.pk;
+              d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
+              d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
+              d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
+            
             });
-                       
+          
+            //console.log(data);
+                     
             // Run the data through crossfilter and load our 'facts'
             var facts = crossfilter(data);
             
@@ -58,8 +56,8 @@
             var dayDimensionGroup = dayDimension.group()
                     .reduceSum(function(d) { return d.amount; });                
            
-            var whoDimension = facts.dimension(function(d) { return d.who; })
-            var whoDimensionGroup = whoDimension.group()
+            var nameDimension = facts.dimension(function(d) { return d.name; })
+            var nameDimensionGroup = nameDimension.group()
                     .reduceSum(function(d) { return d.amount; });                
             
             var monthDimension = facts.dimension(function(d) {
@@ -68,7 +66,7 @@
                                                     .reduceSum(function(d) { return d.amount; }); 
             
                                                   
-            var margins_template = {top: 10, right: 10, bottom: 80, left: 40};
+            var margins_template = {top: 10, right: 10, bottom: 80, left: 100};
             
             var span_height = 350;
             var span6_width = 450;
@@ -86,7 +84,7 @@
                   function(d) { return d.date.toDateString(); },
                   function(d) { return d.amount; },
                   function(d) { return d.detail; },
-                  function(d) { return d.who; },
+                  function(d) { return d.name; },
                   function(d) { return d.detail_url;},
                   function(d) { return d.update_url;},
                   function(d) { return d.delete_url;}
@@ -111,24 +109,25 @@
                     .xAxis();
            
             // time graph
-            whoChart.width(span6_width)
+            nameChart.width(span6_width)
                         .height(span_height)
-                        .margins(margins_template)
-                        .dimension(whoDimension)
-                        .group(whoDimensionGroup)
+                        .margins({top: 20, right: 10, bottom: 80, left: 80})
+                        .dimension(nameDimension)
+                        .group(nameDimensionGroup)
                         .transitionDuration(500)
                         .brushOn(false)
                         .title(function(d){
                             return "Total: $" + d.value;
                         })
-                        .centerBar(true)
-                        .gap(65)
+                        .centerBar(false)
+                        .gap(25)                        
                         .elasticY(true)
-                        .x(d3.scale.ordinal().domain(["", "jvw", "arw"]))
-                                            .xUnits(dc.units.ordinal)
-                        .xAxis();
+                        .xUnits(dc.units.ordinal)
+                        .x(d3.scale.ordinal().domain( data.map(function (d) {return d.name; }) ) )
+                        .xAxis();                  
             
-            
+              console.log( (data.map(function (d) {return d.name; })) );
+              
            var start_monthChart = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[0], -1);
            var end_monthChart  = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[1], +10);
                  

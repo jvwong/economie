@@ -26,8 +26,8 @@
                 
                 {% if perms.mousy.add_receipt %}
                     <p><a id="add-receipt" href="/household/receipt/add/">Add receipt</a></p>
-                {% endif %}   
-        {% else %}
+                {% endif %}
+      {% else %}
               <p>
                   <a href="{% url 'mousy_users_login' %}">Login</a>
                   <span>&nbsp;or&nbsp;</span>
@@ -50,10 +50,10 @@
                         <h4>Monthly Expenses</h4>
                         
                     </div>
-                    <div class='span6' id='dc-who-chart'>
+                    <div class='span6' id='dc-name-chart'>
                         <h4>Expenses by user</h4>
                         
-                    </div>                    
+                    </div> 
                 </div>
                 <br>
                 <br>

@@ -141,7 +141,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.messages',
     'django.contrib.sessions',
-    'mousy'
+    'mousy',
+    'south'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
