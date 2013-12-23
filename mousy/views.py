@@ -97,12 +97,15 @@ class JSONResponseMixin(object):
 
 class HybridListView(JSONResponseMixin, ListView):
     def render_to_response(self, context):
+        current_user = self.request.user
         if self.request.is_ajax():
+            context['object_list'] = Receipt.user_objects.for_user(current_user)
             o_list = context['object_list']
             j_list = [o.as_dict() for o in o_list]
             return JSONResponseMixin.render_to_response(self, j_list)
         return MultipleObjectTemplateResponseMixin.render_to_response(self, context)
-    
+
+
 class HybridDetailView(JSONResponseMixin, SingleObjectTemplateResponseMixin, BaseDetailView):
     def render_to_response(self, context):
         if self.request.is_ajax():
