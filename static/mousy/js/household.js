@@ -31,14 +31,15 @@
 
           data.forEach(function(d) {
             d.date = parseDate.parse(d.date);
+            d.month = d3.time.month(d.date);
             d.year = d.date.getFullYear().toString();
-            d.month = monthNames[d.date.getMonth()];
+            d._month = monthNames[d.date.getMonth()];
             d.day = d.date.getDate().toString();
             d.amount = d.amount;
             d.detail = d.detail;
             d.who = d.created_by;
             d.pk = d.pk;
-            d.detail_url = ['<a href="',['receipt',d.year,d.month, d.day,d.pk,'">Detail</a>'].join('/')].join('');
+            d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
             d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
             d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
 
