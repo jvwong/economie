@@ -186,8 +186,9 @@ household = (function(){
                           .group(nameDimensionGroup)
                           .transitionDuration(500)
                           .brushOn(false)
-                          .title(function(d){
-                              return "Total: $" + d.value;
+                          .renderTitle(true)
+                          .title( function(d){
+                            return "Total: $" + (d.data.value).toFixed(2);
                           })
                           .centerBar(false)
                           .gap(25)                        
