@@ -49,7 +49,6 @@ household = (function(){
                                          + '<th>Amount</th>'
                                          + '<th>Detail</th>'
                                          + '<th>Who</th>'
-                                         + '<th>Detail</th>'
                                          + '<th>Update</th>'
                                          + '<th>Delete</th>'
                                        + '</tr>'                            
@@ -117,7 +116,6 @@ household = (function(){
                      d.year = d.date.getFullYear().toString();
                      d._month = monthNames[d.date.getMonth()];
                      d.day = d.date.getDate().toString();
-                     d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
                      d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
                      d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
               
@@ -218,7 +216,6 @@ household = (function(){
                     function(d) { return d.amount; },
                     function(d) { return d.detail; },
                     function(d) { return d.name; },
-                    function(d) { return d.detail_url;},
                     function(d) { return d.update_url;},
                     function(d) { return d.delete_url;}
                 ]);
