@@ -205,8 +205,11 @@ household = (function(){
                      .label(function (d) {
                             return d.data.key;
                      })
-                     .renderLabel(true)
-                      .colors(d3.scale.category10())
+                     .colors(d3.scale.category10())
+                     .renderTitle(true)
+                     .title( function(d){
+                       return "Total: $" + (d.data.value).toFixed(2);
+                     })
                      .transitionDuration(500)
                      .dimension(detailDimension) 
                      .group(detailDimensionGroup);
