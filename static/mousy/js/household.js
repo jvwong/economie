@@ -28,19 +28,14 @@ household = (function(){
                        + '</div>'
                        
                        + '<div class="row">'
-                           + '<div class="span6" id="dc-month-chart">'
+                           + '<div class="span4" id="dc-month-chart">'
                                + '<h4>Monthly Expenses</h4>'                        
                            + '</div>'
-                           + '<div class="span6" id="dc-name-chart">'
-                               + '<h4>Expenses by user</h4>'                        
-                           + '</div>'
-                       + '</div>'
-                       
-                       + '<div class="row">'
-                           + '<div class="span6" id="dc-where-chart">'
+                           + '<div class="span4" id="dc-detail-chart">'
                                + '<h4>Location Expenses</h4>'                        
-                           + '</div>'
-                           + '<div class="span6" id="">'                        
+                           + '</div>'                           
+                           + '<div class="span4" id="dc-name-chart">'
+                               + '<h4>Expenses by user</h4>'                        
                            + '</div>'
                        + '</div>'
                        
@@ -71,9 +66,9 @@ household = (function(){
        stateMap  = {
            $append_target   : null          
        },
-       jqueryMap = {},
+              
+       dayChart, monthChart, nameChart, dataTable, detailChart,               
        
-       dayChart, monthChart, nameChart, dataTable, quarterChart,               
        dtgFormat2, monthNames, parseDate,                
        setJqueryMap, generate,
        initModule;
@@ -86,161 +81,170 @@ household = (function(){
                            "jul", "aug", "sep", "oct", "nov", "dec" ];
        
        
-       setJqueryMap = function(){ return 0; };
-                   
-       /* plots dc.js charts             
-       */
+       /* plots dc.js charts */
        generate = function(data) {
        
-           var
-           facts,
-           dayDimension, dayDimensionGroup,
-           nameDimension, nameDimensionGroup,
-           monthDimension, monthDimensionGroup,
-           margins_template,                
-           span_height, span6_width, span12_width,
-           start_dayChart, end_dayChart,
-           start_monthChart, end_monthChart
-           ;
-                  
-           
-           //formatting and utilities
-           margins_template = {top: 10, right: 10, bottom: 80, left: 100};
-           span_height = 350;
-           span6_width = 450;
-           span12_width = 800;
-           
-           
-           data.forEach(function(d) {
+              var
+              facts,
+              dayDimension, dayDimensionGroup,
+              monthDimension, monthDimensionGroup,
+              nameDimension, nameDimensionGroup,
+              detailDimension, detailDimensionGroup,
+              
+              
+              margins_template,                
+              span_height, span4_width, span6_width, span12_width,
+              
+                             
+              
+              start_dayChart, end_dayChart,
+              start_monthChart, end_monthChart
+              ;
+                     
+              
+              //formatting and utilities
+              margins_template = {top: 10, right: 10, bottom: 80, left: 40};
+              span_height = 350;
+              span4_width = 300;
+              span6_width = 450;
+              span12_width = 900;
+              
+              
+              data.forEach(function(d) {
+                
+                     d.date = parseDate.parse(d.date);
+                     d.month = d3.time.month(d.date);
+                     d.year = d.date.getFullYear().toString();
+                     d._month = monthNames[d.date.getMonth()];
+                     d.day = d.date.getDate().toString();
+                     d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
+                     d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
+                     d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
+              
+              });
+          
+                       
+              // Run the data through crossfilter and load our 'facts'
+              facts = crossfilter(data);                
+              
+              // Create dataTable dimension
+              dayDimension = facts.dimension(function(d) { return d3.time.day(d.date); });
+              dayDimensionGroup = dayDimension.group().reduceSum(function(d) { return d.amount; });                
              
-             d.date = parseDate.parse(d.date);
-             d.month = d3.time.month(d.date);
-             d.year = d.date.getFullYear().toString();
-             d._month = monthNames[d.date.getMonth()];
-             d.day = d.date.getDate().toString();
-             d.detail_url = ['<a href="',['receipt',d.year,d._month , d.day,d.pk,'">Detail</a>'].join('/')].join('');
-             d.update_url = ['<a href="',['receipt/update',d.pk,'">Update</a>'].join('/')].join('');
-             d.delete_url = ['<a href="',['receipt',d.pk,'delete','">Delete</a>'].join('/')].join('');
-           
-           });
-       
-                    
-           // Run the data through crossfilter and load our 'facts'
-           facts = crossfilter(data);                
-           
-           // Create dataTable dimension
-           dayDimension = facts.dimension(function(d) { return d3.time.day(d.date); });
-           dayDimensionGroup = dayDimension.group()
-                                           .reduceSum(function(d) { return d.amount; });                
-          
-           nameDimension = facts.dimension(function(d) { return d.name; });
-           nameDimensionGroup = nameDimension.group()
-                                             .reduceSum(function(d) { return d.amount; });                
-           
-           monthDimension = facts.dimension(function(d) {
-                                                   return d.month; });
-           monthDimensionGroup = monthDimension.group()
-                                               .reduceSum(function(d) { return d.amount; }); 
-           
-                                                 
-           // Setup the charts
-           // Table of receipt data
-           dataTable.width( span12_width )
-               .dimension( dayDimension )
-               .group(function() {
-                   return "expenditures";
-               })
-               .size(100)
-               .columns([
-                 function(d) { return d.date.toDateString(); },
-                 function(d) { return d.amount; },
-                 function(d) { return d.detail; },
-                 function(d) { return d.name; },
-                 function(d) { return d.detail_url;},
-                 function(d) { return d.update_url;},
-                 function(d) { return d.delete_url;}
-             ]);
-          
-           
-           start_dayChart = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[0], -1);
-           end_dayChart  = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[1], +1);
-          
-           //// time graph
-           dayChart.width(span12_width)
-                   .height(span_height)
-                   .margins(margins_template)
-                   .dimension(dayDimension)
-                   .group(dayDimensionGroup)
-                   .transitionDuration(500)
-                   .centerBar(true)
-                   .gap(2)
-                   .xUnits(d3.time.days)
-                   .x(d3.time.scale().domain([start_dayChart, end_dayChart]) )
-                   .elasticY(true)
-                   .xAxis();
-                   
-       
-          
-           // time graph
-           nameChart.width(span6_width)
+              monthDimension = facts.dimension(function(d) { return d.month; });
+              monthDimensionGroup = monthDimension.group().reduceSum(function(d) { return d.amount; }); 
+              
+              nameDimension = facts.dimension(function(d) { return d.name; });
+              nameDimensionGroup = nameDimension.group().reduceSum(function(d) { return d.amount; });                
+                         
+              detailDimension = facts.dimension(function(d) { return d.detail; });
+              detailDimensionGroup = detailDimension.group().reduceSum(function(d) { return d.amount; });                
+                                                    
+              
+             
+                         
+              //// Receipts by day
+              start_dayChart = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[0], -1);
+              end_dayChart  = d3.time.day.offset(d3.extent(data, function(d){ return d.date; })[1], +1);
+              dayChart.width(span12_width)
+                      .height(span_height)
+                      .margins(margins_template)
+                      .dimension(dayDimension)
+                      .group(dayDimensionGroup)
+                      .transitionDuration(500)
+                      .centerBar(true)
+                      .gap(2)
+                      .xUnits(d3.time.days)
+                      .x(d3.time.scale().domain([start_dayChart, end_dayChart]) )
+                      .elasticY(true)
+                      .xAxis();
+                      
+                                 
+              //// Receipts by month
+              start_monthChart = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[0], -1);
+              end_monthChart  = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[1], +10);
+              monthChart.width(span4_width)
                        .height(span_height)
-                       .margins({top: 20, right: 10, bottom: 80, left: 80})
-                       .dimension(nameDimension)
-                       .group(nameDimensionGroup)
+                       .margins(margins_template)
+                       .dimension(monthDimension)
+                       .group(monthDimensionGroup)
                        .transitionDuration(500)
-                       .brushOn(false)
-                       .title(function(d){
-                           return "Total: $" + d.value;
-                       })
-                       .centerBar(false)
-                       .gap(25)                        
+                       .centerBar(true)
+                       .xUnits(d3.time.months)
+                       .gap(10)
+                       .x(d3.time.scale().domain([start_monthChart, end_monthChart ]))
                        .elasticY(true)
-                       .xUnits(dc.units.ordinal)
-                       .x(d3.scale.ordinal().domain( data.map(function (d) {return d.name; }) ) )
-                       .xAxis();                  
+                       .xAxis();
        
-             
-           start_monthChart = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[0], -1);
-           end_monthChart  = d3.time.month.offset(d3.extent(data, function(d){ return d.month; })[1], +10);
-                 
-           //// time graph
-           monthChart.width(span6_width)
-                    .height(span_height)
-                    .margins(margins_template)
-                    .dimension(monthDimension)
-                    .group(monthDimensionGroup)
-                    .transitionDuration(500)
-                    .centerBar(true)
-                    .xUnits(d3.time.months)
-                    .gap(10)
-                    .x(d3.time.scale().domain([start_monthChart, end_monthChart ]))
-                    .elasticY(true)
-                    .xAxis();
-                    
-       
+                             
+              //// Receipts by name
+              nameChart.width(span4_width)
+                          .height(span_height)
+                          .margins(margins_template)
+                          .dimension(nameDimension)
+                          .group(nameDimensionGroup)
+                          .transitionDuration(500)
+                          .brushOn(false)
+                          .title(function(d){
+                              return "Total: $" + d.value;
+                          })
+                          .centerBar(false)
+                          .gap(25)                        
+                          .elasticY(true)
+                          .xUnits(dc.units.ordinal)
+                          .x(d3.scale.ordinal().domain( data.map(function (d) {return d.name; }) ) )
+                          .xAxis();                  
             
-           // Render the Charts
-           dc.renderAll();
-       
-       
-           // Post rendering formatting of x tickl labels
-           d3.select("#dc-month-chart .axis.x")
-               .selectAll("text")
-               .style("text-anchor", "end")
-               .attr("dx", "-.8em")
-               .attr("dy", ".15em")
-               .attr("transform", function() {
-                   return "rotate(-90)";
-               });
-               
-           d3.select("#dc-day-chart .axis.x")
-               .selectAll("text")
-               .style("text-anchor", "end")
-               .attr("dx", "-.8em")
-               .attr("dy", ".15em")
-               .attr("transform", function() {
-                   return "rotate(-45)";
-               });
+            
+               //// Receipts by location detail
+               detailChart
+                     .width(span4_width) 
+                     .height(span_height)
+                     .radius((span4_width/2.5)) 
+                     .innerRadius((span4_width/7.5))
+                     .dimension(detailDimension) 
+                     .group(detailDimensionGroup);
+                     
+                     
+              // Table of receipt data
+              dataTable.width( span12_width )
+                  .dimension( dayDimension )
+                  .group(function() {
+                      return "expenditures";
+                  })
+                  .size(100)
+                  .columns([
+                    function(d) { return d.date.toDateString(); },
+                    function(d) { return d.amount; },
+                    function(d) { return d.detail; },
+                    function(d) { return d.name; },
+                    function(d) { return d.detail_url;},
+                    function(d) { return d.update_url;},
+                    function(d) { return d.delete_url;}
+                ]);
+              
+              
+              // Render the Charts
+              dc.renderAll();       
+              
+              // Post rendering formatting of x tickl labels
+              d3.select("#dc-month-chart .axis.x")
+                     .selectAll("text")
+                     .style("text-anchor", "end")
+                     .attr("dx", "-.8em")
+                     .attr("dy", ".15em")
+                     .attr("transform", function() {
+                       return "rotate(-90)";
+                     });
+              
+              d3.select("#dc-day-chart .axis.x")
+                     .selectAll("text")
+                     .style("text-anchor", "end")
+                     .attr("dx", "-.8em")
+                     .attr("dy", ".15em")
+                     .attr("transform", function() {
+                       return "rotate(-45)";
+                     });
        }
        
        //------------------- BEGIN PUBLIC METHODS ---------------------
@@ -268,12 +272,11 @@ household = (function(){
               // load chat slider html and jquery cache
               stateMap.$append_target = $append_target;
               $append_target.append( configMap.main_html );
-              //setJqueryMap();
-              
+                      
               // initialize chat slider to default title and state
               
               // Create the dc.js chart objects & link to div
-              //quarterChart = dc.pieChart("#dc-where-chart");
+              detailChart = dc.pieChart("#dc-detail-chart");
               dayChart = dc.barChart("#dc-day-chart");
               monthChart = dc.barChart("#dc-month-chart");
               nameChart = dc.barChart("#dc-name-chart");
