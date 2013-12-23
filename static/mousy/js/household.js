@@ -23,7 +23,7 @@ household = (function(){
            
                        + '<div class="row">'
                            + '<div class="span6" id="dc-day-chart">'
-                               + '<h4>Daily Expenses</h4>'                        
+                             + '<h4>Daily Expenses</h4>'
                            + '</div>'
                        + '</div>'
                        
@@ -32,10 +32,10 @@ household = (function(){
                                + '<h4>Monthly Expenses</h4>'                        
                            + '</div>'
                            + '<div class="span4" id="dc-detail-chart">'
-                               + '<h4>Location Expenses</h4>'                        
+                               + '<h4>Expense by Location</h4>'
                            + '</div>'                           
                            + '<div class="span4" id="dc-name-chart">'
-                               + '<h4>Expenses by user</h4>'                        
+                               + '<h4>Expense by user</h4>'
                            + '</div>'
                        + '</div>'
                        
