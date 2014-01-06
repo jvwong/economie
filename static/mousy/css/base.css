@@ -179,10 +179,9 @@ button {
 }
 
 #summary{
-     /*position: absolute;*/
-     /*top: 100px;*/
-     /*right: -125px;*/
-     /*margin-left: 375px;*/
+     position: absolute;
+     top: 50px;
+     margin-left: 800px;
 }
 
 #summary table { 
