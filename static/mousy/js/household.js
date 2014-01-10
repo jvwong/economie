@@ -108,6 +108,10 @@ household = (function(){
               span4_width = 300;
               span6_width = 450;
               span12_width = 900;
+
+              // A nest operator, for grouping the flight list.
+              var nestByDate = d3.nest()
+                                .key(function(d) { return d3.time.day(d.date); });
               
               
               data.forEach(function(d) {
@@ -218,7 +222,8 @@ household = (function(){
                      
               // Table of receipt data
               dataTable.width( span12_width )
-                  .dimension( dayDimension )
+//                  .dimension( dayDimension )
+                  .dimension( nestByDate.entries(dayDimension.top(50)); )
                   .group(function() {
                       return "expenditures";
                   })
