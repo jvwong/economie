@@ -223,7 +223,7 @@ household = (function(){
               // Table of receipt data
               dataTable.width( span12_width )
 //                  .dimension( dayDimension )
-                  .dimension( nestByDate.entries(dayDimension.top(50)); )
+                  .dimension( nestByDate.entries(dayDimension.top(50)) )
                   .group(function() {
                       return "expenditures";
                   })
