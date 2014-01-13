@@ -37,7 +37,6 @@ p.indent{
   position:static;
   background-color: #ddcf99;
   height: 120px;
-  width: 100%;
 }
 
 a.nav:link, a.nav:visited{
@@ -71,22 +70,24 @@ a.nav:link, a.nav:visited{
   #nav-links{
     position: absolute;
     top: 2em;
-    left: 22em;
+    left: 5em;
     display: inline-block;
     font-size: 1.6em;
+    min-width: 28em;
   }
 
   .navlink{
     float: left;
-    padding-left: 1em;
+    padding-left: 2.5em;
   }
 
   #sidebar{
     position: absolute;
     top: 1em;
-    left: 45%;
+    left: 7em;
     margin: 1em auto;
     font-size: 1.6em;
+    min-width: 28em;
   }
 
 }
@@ -237,7 +238,7 @@ button {
     position: relative;
     top: 100px;
     width: 1000px;
-    margin-left: 225px;
+    /*margin-left: 225px;*/
 }
 
 #main-container h4{
