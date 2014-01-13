@@ -95,7 +95,7 @@ a.nav:link, a.nav:visited{
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 380px) {
 
   #navigation{
     position:static;
