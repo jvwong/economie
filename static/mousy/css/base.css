@@ -66,7 +66,7 @@ a.nav:link, a.nav:visited{
   #nav-links{
     position : absolute;
     top: 1em;
-    background: lightgrey;
+    /*background: lightgrey;*/
     font-size: 1.1em;
   }
 
@@ -89,7 +89,7 @@ a.nav:link, a.nav:visited{
     top: 2em;
     left: 50%;
     display: inline-block;
-    background: steelblue;
+    /*background: steelblue;*/
     font-size: 1.4em;
   }
 
