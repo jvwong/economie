@@ -21,7 +21,7 @@
     {% endblock head %}
 </head>
 
-<body class={% block bodyclass %}{% endblock bodyclass %}>
+<body>
     <div id="header">
 	    
       {% block navigation %}
@@ -46,13 +46,6 @@
 	    {% block content %}
 	    {% endblock content %}   
     </div>
-      
-	
-    <div id="footer">
-	  {% block footer %}  
-	   <p>&copy; JRayWo Inc.</p>
-	  {% endblock footer %}    	
-    </div>
-  
+
 </body>
 </html>

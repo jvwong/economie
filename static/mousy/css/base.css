@@ -10,16 +10,16 @@ html {
 }
 
 body {
-      position: relative;
+      position: absolute;
       font-family: 'Droid Sans';
       font-family: sans-serif;
       font-size: 15px;
       width: 100%;
-      min-height: 60%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 0px;
-      margin-bottom: 0px;
+      min-height: 800px;
+      /*margin-left: auto;*/
+      /*margin-right: auto;*/
+      /*margin-top: 0px;*/
+      /*margin-bottom: 0px;*/
       z-index:0;
 }
 
@@ -50,7 +50,6 @@ p.indent{
 #navigation{
       position:static;
       z-index:-1;		      
-      padding:1px 125px;
       background-color: #ddcf99;
       height: 120px;
       width: 100%;
@@ -66,13 +65,13 @@ a.nav:link, a.nav:visited{
   #nav-links{
     position : absolute;
     top: 1em;
-    /*background: lightgrey;*/
+    left: 18em;
     font-size: 1.1em;
   }
 
   #sidebar{
     position: absolute;
-    left: 50px;
+    left: 16em;
     top: 50px;
   }
 
@@ -87,10 +86,9 @@ a.nav:link, a.nav:visited{
   #nav-links{
     position: absolute;
     top: 2em;
-    left: 50%;
+    left: 22em;
     display: inline-block;
-    /*background: steelblue;*/
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
 
   .navlink{
@@ -103,11 +101,7 @@ a.nav:link, a.nav:visited{
     top: 1em;
     left: 45%;
     margin: 1em auto;
-    font-size: 1.4em;
-  }
-
-  #sidebar-add-receipt{
-
+    font-size: 1.6em;
   }
 
 }
@@ -131,7 +125,7 @@ a.nav:link, a.nav:visited{
 -----------------------------*/
 #content{
       clear: both;
-      position: relative;
+      position: absolute;
       width: 1200px;
       min-height: 700px;
       margin-left: auto;
@@ -361,20 +355,6 @@ table#user-login .errorlist li{
 /*----------------------------
 	Begin: footer 
 -----------------------------*/
-
-#footer {
-      position: relative;
-      width: 100%;
-      left: 125px;
-      /*top: 10%;*/
-      z-index: 1;	
-}
-
-#footer p{
-      font-size: 0.75em;
-      color: #565347;	
-}
-
 
 /*----------------------------
 	End: footer
