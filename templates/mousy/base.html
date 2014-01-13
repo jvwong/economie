@@ -24,23 +24,19 @@
 <body class={% block bodyclass %}{% endblock bodyclass %}>
     <div id="header">
 	    
-      {% block navigation %}    
-	    <div id="navigation">
+      {% block navigation %}
+      <div id="navigation">
 	    
-		<div id="nav-links">
-		    <ul>
-			{% block navLinks %}			
-			    <li><a href = "{% url 'mousy_economie' %}">Economie</a></li>
-			    <li><a href = "{% url 'mousy_household' %}">Household</a></li>
-			    <li><a href = "{% url 'mousy_contact' %}">Contact</a></li>
-			    <li><a href = "{% url 'admin:index' %}">Admin</a></li>
-			{% endblock navLinks %}				
-		    </ul>
-		</div>
-		<div id="nav-icon">
-		</div>
+        <div id="nav-links">
+          {% block navLinks %}
+              <div class="navlink"><a href = "{% url 'mousy_economie' %}">Economie</a></div>
+              <div class="navlink"><a href = "{% url 'mousy_household' %}">Household</a></div>
+              <div class="navlink"><a href = "{% url 'mousy_contact' %}">Contact</a></div>
+              <div class="navlink"><a href = "{% url 'admin:index' %}">Admin</a></div>
+          {% endblock navLinks %}
+        </div>
 	    
-	    </div>    
+      </div>
       {% endblock navigation %}
 
     </div>  

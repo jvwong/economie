@@ -24,10 +24,9 @@
 
     <div id="sidebar">		
         {% if user.is_authenticated %}  
-            <p>User: {{ user.username }} (<a href="{% url 'mousy_users_logout' %}">Logout</a>)</p>
-                
+            User: {{ user.username }} (<a href="{% url 'mousy_users_logout' %}">Logout</a>)
                 {% if perms.mousy.add_receipt %}
-                    <p><a id="add-receipt" href="/household/receipt/add/">Add receipt</a></p>
+                    <span id="sidebar-add-receipt">---<a id="add-receipt" href="/household/receipt/add/">  Add receipt</a></span>
                 {% endif %}
       {% else %}
               <p>

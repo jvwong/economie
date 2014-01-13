@@ -62,10 +62,54 @@ a.nav:link, a.nav:visited{
       outline: 0;	
 }
 
+@media (min-width: 1024px) {
+  #nav-links{
+    position : absolute;
+    top: 1em;
+    background: lightgrey;
+    font-size: 1.1em;
+  }
 
-#nav-links{
-      float: left;
-      width: 200px;		  
+  #sidebar{
+    position: absolute;
+    left: 50px;
+    top: 50px;
+  }
+
+  #sidebar p{
+    font-size: 1em;
+  }
+
+}
+
+@media (max-width: 1024px) {
+
+  #nav-links{
+    position: absolute;
+    top: 2em;
+    left: 50%;
+    display: inline-block;
+    background: steelblue;
+    font-size: 1.4em;
+  }
+
+  .navlink{
+    float: left;
+    padding-left: 1em;
+  }
+
+  #sidebar{
+    position: absolute;
+    top: 1em;
+    left: 45%;
+    margin: 1em auto;
+    font-size: 1.4em;
+  }
+
+  #sidebar-add-receipt{
+
+  }
+
 }
 
 #navigation ul{
@@ -73,11 +117,6 @@ a.nav:link, a.nav:visited{
       list-style-type: none; 
 }
 
-#nav-icon{
-      margin-top: 25px;
-      margin-left: 500px;
-      
-}
 
 
 
@@ -224,19 +263,10 @@ button {
         Begin: household
 -----------------------------*/
 
-#sidebar{
-	position: absolute;
-	left: 50px;
-	top: 50px;
-}
-
-#sidebar p{
-	font-size: 1em;
-}
 
 #main-container{
     position: relative;
-    top: 50px;
+    top: 100px;
     width: 1000px;
     margin-left: 225px;
 }
