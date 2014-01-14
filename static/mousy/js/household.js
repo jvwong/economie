@@ -224,7 +224,7 @@ household = (function(){
       .group(function() {
         return "expenditures";
       })
-      .size(100)
+      .size(100).order(d3.descending)
       .columns([
         function(d) { return d.date.toDateString(); },
         function(d) { return d.amount; },
