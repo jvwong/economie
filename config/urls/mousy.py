@@ -1,10 +1,19 @@
-from django.conf.urls import *
+from django.conf.urls import patterns, url, include
 from django.views.generic.base import TemplateView
- 
+from django.conf import settings
 from django.contrib import admin
+
 admin.autodiscover()
- 
-urlpatterns = patterns('',
+
+urlpatterns = patterns('')
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns = patterns('', 
+		(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+	)
+
+urlpatterns += patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
