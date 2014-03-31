@@ -7,9 +7,9 @@ def push():
 env.hosts = ['jvwong@192.168.0.10']
 
 def remote_pull():
-    code_dir = '/var/www/economie/'
+    code_dir = '/home/jvwong/projects/economie/'
     with cd(code_dir):
-        sudo("git pull origin master")
+        run("git pull origin master")
 
 def getStatus():
     run('/usr/local/bin/supervisorctl status')
