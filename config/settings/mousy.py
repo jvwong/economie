@@ -2,7 +2,7 @@ import os
 
 APP_NAME = "mousy"
 
-DEBUG = False
+DEBUG = True
 
 #Pre-configured pathsc
 SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__)) 

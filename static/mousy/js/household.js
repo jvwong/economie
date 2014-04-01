@@ -156,7 +156,7 @@ household = (function(){
       .group(dayDimensionGroup)
       .transitionDuration(500)
       .centerBar(true)
-      .gap(5)
+      .gap(0)
       .xUnits(d3.time.days)
       .x(d3.time.scale().domain([start_dayChart, end_dayChart]) )
       .elasticY(true)
@@ -173,8 +173,12 @@ household = (function(){
       .group(monthDimensionGroup)
       .transitionDuration(500)
       .centerBar(false)
+      .brushOn(false)
+      .title( function(d){
+        return "Total: $" + (d.value).toFixed(2);
+      })
       .xUnits(d3.time.months)
-      .gap(4)
+      .gap(3)
       .x(d3.time.scale().domain([start_monthChart, end_monthChart ]))
       .elasticY(true)
       .xAxis();
@@ -224,7 +228,7 @@ household = (function(){
       .group(function() {
         return "expenditures";
       })
-      .size(100).order(d3.descending)
+      .size(100)
       .columns([
         function(d) { return d.date.toDateString(); },
         function(d) { return d.amount; },
@@ -232,7 +236,12 @@ household = (function(){
         function(d) { return d.name; },
         function(d) { return d.update_url;},
         function(d) { return d.delete_url;}
-      ]);
+      ])
+      .sortBy(function(d) {
+        return d.date;
+      })
+      .order(d3.descending)
+      ;
 
 
     // Render the Charts
